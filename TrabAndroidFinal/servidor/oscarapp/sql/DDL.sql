@@ -33,5 +33,3 @@ login varchar(100),
 primary key(id),
 foreign key (login) references usuario(login)
 );
-create table votodiretor(
-);

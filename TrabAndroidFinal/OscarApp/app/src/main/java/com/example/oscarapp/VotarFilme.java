@@ -3,18 +3,12 @@ package com.example.oscarapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,7 +31,7 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
     ListView list;
     List<FilmeVO> listFilmeVO;
     FilmeVO[] arrayFilmeVO;
-    ProgressDialog p1;
+    ProgressDialog pd;
 
     public static final String REQUEST_TAG = "MainVolleyActivity";
     RequestQueue mQueue;
@@ -47,14 +41,7 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_votar_filme);
 
-        p1 = new ProgressDialog(VotarFilme.this);
-        progressDialog();
-
-        if(Build.VERSION.SDK_INT > 9){
-            StrictMode.ThreadPolicy policy = new
-                    StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        pd = new ProgressDialog(this);
 
     }
 
@@ -67,6 +54,31 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
                 Links.FILMES_URL, new JSONObject(), VotarFilme.this, VotarFilme.this);
         mQueue.add(jsonRequest);
 
+        progressDialog(pd);
+
+    }
+
+    @Override
+    protected void onResume(){
+
+        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
+        CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method.GET,
+                Links.FILMES_URL, new JSONObject(), VotarFilme.this, VotarFilme.this);
+        jsonRequest.setTag(REQUEST_TAG);
+        mQueue.add(jsonRequest);
+
+        progressDialog(pd);
+
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(mQueue != null){
+            mQueue.cancelAll(REQUEST_TAG);
+        }
     }
 
 
@@ -77,6 +89,7 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
 
     @Override
     public void onResponse(Object response) {
+
         JSONArray filmes = new JSONArray();
 
         listFilmeVO = new ArrayList<FilmeVO>();
@@ -122,12 +135,13 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
             }
         });
 
-        p1.dismiss();
+        pd.dismiss();
 
     }
 
-    public void progressDialog(){
+    public void progressDialog(ProgressDialog p1){
         p1.setMessage("Buscando filmes\nAguarde");
+        p1.setIndeterminate(false);
         p1.setCanceledOnTouchOutside(false);
         p1.setCancelable(false);
         p1.show();
@@ -140,4 +154,5 @@ public class VotarFilme extends AppCompatActivity implements Response.Listener, 
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

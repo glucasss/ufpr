@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Detalhe"></activity>
+        <activity android:name=".ConfirmarVoto"></activity>
+        <activity android:name=".Detalhe" />
         <activity android:name=".VotarDiretor" />
         <activity android:name=".VotarFilme" />
         <activity android:name=".Home" />

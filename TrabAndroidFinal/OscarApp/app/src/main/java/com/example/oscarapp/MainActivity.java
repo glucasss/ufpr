@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.example.oscarapp.DB.DBOperations;
 import com.example.oscarapp.utils.CustomJSONObjectRequest;
 import com.example.oscarapp.utils.CustomVolleyRequestQueue;
 import com.example.oscarapp.utils.ErrorHandle;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         iptSenha = (EditText)findViewById(R.id.iptSenha);
         btnEnviar = (Button)findViewById(R.id.btnEnviar);
 
+        getApplicationContext().deleteDatabase("OscarApp.db");
+
     }
 
     @Override
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                             new CustomJSONObjectRequest(Request.Method.POST,
                             Links.BASE_URL+Links.USER+Links.LOGIN, loginJson,
                         MainActivity.this, MainActivity.this);
+                    jsonRequest.setTag(REQUEST_TAG);
 
                     mQueue.add(jsonRequest);
                 }
@@ -118,8 +122,11 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             voto = ((JSONObject) response).getString("voto");
             token = ((JSONObject) response).getInt("token");
 
-            if(voto.equals("ok")){
+            if(voto.equals("OK")){
+                params.putString("tela", "Main");
+                params.putString("login", login);
                 it = new Intent(MainActivity.this, ResultadoVoto.class);
+                it.putExtras(params);
                 startActivity(it);
                 finish();
             }else{
