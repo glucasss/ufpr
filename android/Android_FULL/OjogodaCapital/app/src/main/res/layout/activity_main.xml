@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="O jogo das Capitais"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="45dp"
+        android:text="Estado:"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/estado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="80dp"
+        android:text="estado"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="120dp"
+        android:text="Capital:"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/capital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="150dp"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="0dp"
+        android:onClick="validar"
+        android:paddingTop="0dp"
+        android:text="Validar"
+        android:translationY="200dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/resposta"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
+        android:textSize="40sp"
+        android:translationY="300dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />     
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    <title>CLIENTES</title>
+    <style type="text/css">
+        .tableUpdated {
+            width: 50% !important;
+            margin: 0 auto !important;
+        }
+        .btnSpace {
+            margin: 17px;
+        }     
+    </style>
+</h:head>
+    
+<h:body>
+    <center><h2><h:outputText value="Lista de Clientes"/></h2></center>
+    <h:form id="studentForm">
+        <h:dataTable id="studentTable" binding="#{table}" value="#{clientBean.clientList()}" var="client" class="table table-striped table-hover table-bordered tableUpdated">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{client.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{client.nomeCliente}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{client.emailCliente}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">CPF</f:facet>
+                <h:outputText value="#{client.cpfCliente}" />
+            </h:column>
+            <h:column>
+                <center>
+                    <p:growl id="message" showDetail="true" />
+                    <p:commandButton action="#{clientBean.editClientRecord(client.id)}" value="Editar" class="btn btn-primary" /> I
+                    <p:commandButton action="#{clientBean.deleteClientRecord(client.id)}" value="Excluir" class="btn btn-danger">
+                        <p:confirm header="Confirmação" message="Confirmar exclusão?" icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                    </p:confirmDialog>   
+                </center>
+            </h:column>
+        </h:dataTable>
+        <br/>
+        <center>
+            <p:commandButton action="clientCreate.xhtml?faces-redirect=true" value="Novo cliente" class="btn btn-success" /> I 
+            <p:commandButton action="sellList.xhtml?faces-redirect=true" value="Vendas" class="btn btn-primary" />
+        </center>
+    </h:form>
+</h:body>
+</html>

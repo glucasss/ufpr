@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />     
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    <title>VENDAS</title>
+    <style type="text/css">
+        .tableUpdated {
+            width: 50% !important;
+            margin: 0 auto !important;
+        }
+        .btnSpace {
+            margin: 17px;
+        }     
+    </style>
+</h:head>
+    
+<h:body>
+    <center><h2><h:outputText value="Lista de Vendas"/></h2></center>
+    <h:form id="studentForm">
+        <h:dataTable id="studentTable" binding="#{table}" value="#{vendasBean.vendasList()}" var="venda" class="table table-striped table-hover table-bordered tableUpdated">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{venda.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome cliente</f:facet>
+                <h:outputText value="#{venda.clientVO.nomeCliente}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{venda.dtVenda}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Id produto</f:facet>
+                <h:outputText value="#{venda.idProduto}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Quantidade</f:facet>
+                <h:outputText value="#{venda.qtdProduto}" />
+            </h:column>
+        </h:dataTable>
+        <br/>
+        <center>
+            <p:commandButton action="sellCreate.xhtml?faces-redirect=true" value="Nova venda" class="btn btn-success" /> I 
+            <p:commandButton action="clientList.xhtml?faces-redirect=true" value="Clientes" class="btn btn-primary" />
+        </center>
+    </h:form>
+</h:body>
+</html>
